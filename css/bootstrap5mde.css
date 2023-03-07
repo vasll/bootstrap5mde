@@ -5,11 +5,7 @@
 
 #bootstrap5mde{
     border: 1px solid var(--border-color);
-    border-radius: 3px;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+    border-radius: 4px;
 }
 
 #bootstrap5mde-btn-toolbar{
@@ -17,9 +13,9 @@
 }
 
 #bootstrap5mde-raw{
-    padding: 8px;
-    border:none;
-    border-radius: 0px;
+    padding: 12px;
+    border: none;
+    border-radius: 0px 0px 4px 4px;
     font-size: 16px;
     flex:1;
 }
@@ -30,7 +26,9 @@
 }
 
 #bootstrap5mde-parsed{
+    padding: 12px;
     border:none;
+    border-radius: 0px 0px 4px 4px;
     flex:1;
 }
 
