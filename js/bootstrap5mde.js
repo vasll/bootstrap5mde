@@ -5,7 +5,7 @@ $(document).ready(()=>{
         console.log(isCurrentMarkdownRaw)
         if(isCurrentMarkdownRaw == true){
             $('#bootstrap5mde-raw').hide()
-            $('#bootstrap5mde-parsed').html(marked.parse($('#bootstrap5mde-raw').val()))
+            $('#bootstrap5mde-parsed').html(marked.parse($('#bootstrap5mde-raw').val()))    // TODO sanitize parsing
             $('#bootstrap5mde-parsed').show()
         }else if(isCurrentMarkdownRaw == false){
             $('#bootstrap5mde-parsed').hide()
