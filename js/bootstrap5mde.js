@@ -37,24 +37,37 @@ $(document).ready(()=>{
 
 
 /* Surrounds higlighted text on the left and right at the cursor of a textarea with given surroundText.
-** Places cursor in the middle if highlighted text is none  */
+** Places cursor in the middle if highlighted text is none, or at the end if there is text  */
 function surroundHighlightedText(element, surroundText){
     var cursorStart = $(element).prop('selectionStart')
     var cursorEnd = $(element).prop('selectionEnd')
     
     var text = $(element).val()
     var textBeforeStart = text.substring(0,  cursorStart)
-    var highligtedText = text.substring(cursorStart, cursorEnd)
+    var highlightedText = text.substring(cursorStart, cursorEnd)
     var textAfterEnd = text.substring(cursorEnd, text.length)
 
-    $(element).val(`${textBeforeStart}${surroundText}${highligtedText}${surroundText}${textAfterEnd}`)
+     // If highlightedText contains text, trim whitespaces
+    if(highlightedText.length>0){  
+        if(highlightedText.endsWith(" ")){
+            highlightedText = $.trim(highlightedText)
+            console.log(surroundText)
+        }
+    }
+
+    // Replace text from textarea
+    $(element).val(`${textBeforeStart}${surroundText}${highlightedText}${surroundText} ${textAfterEnd}`)
     $(element).focus()
 
-    if(highligtedText.length==0){
+    // If 'highlightedText' is empty, set cursor position in the middle of the two 'surroundText'
+    if(highlightedText.length==0){
         const cursorPosition = textBeforeStart.length + surroundText.length
         $(element).prop({
             'selectionStart': cursorPosition,
             'selectionEnd': cursorPosition
         });
+    }else if(highlightedText.length>0){ // If 'highlightedText' contains text, set cursor position at the end of the surrounded text
+        const cursorPosition = textBeforeStart.length + (surroundText.length*2) + highlightedText.length
+        $(element).prop({'selectionStart': cursorPosition, 'selectionEnd': cursorPosition});
     }
 }
