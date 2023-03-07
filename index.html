@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="css/romanianmd.css">
     <style>
         html, body{
+            margin: 0px;
+            padding: 0px;
             min-height: 100vh;
             max-height: 100vh;
             height:100vh;
@@ -17,7 +19,8 @@
 </head>
 
 <body>
-    <div id="romanianmd" class="m-2">
+    <!-- TODO fixare resizing -->
+    <div id="romanianmd" class="flex-d h-100 w-100">
         <div id="romanianmd-btn-toolbar" class="btn-toolbar p-1" role="toolbar">
             <div class="btn-group p-0 m-0" role="group">
                 <button id="romanianmd-btn-bold" type="button p-0 m-0" class="btn px-6px">
@@ -28,7 +31,7 @@
                 </button>
             </div>
 
-            <div class="vr mx-1 my-2" style="border-left: 1px solid var(--svg-fill-color);"></div>
+            <div class="vr romanianmd-vr mx-1 my-2"></div>
             <div class="btn-group p-0 m-0" role="group">
                 <button type="button p-0 m-0" class="btn px-6px">
                     <img src="img/mdi-format-h1.svg" class="svg-fill p-0 m-0" height="32px" width="32px">
@@ -47,7 +50,9 @@
             -->
         </div>
         
-        <textarea id="romanianmd-raw"></textarea>
+        <div class="" style="background-color: red; border: 3px solid blue">
+            
+        </div>
         <div id="romanianmd-parsed" style="display:none"></div>
     </div>
 
