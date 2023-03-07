@@ -20,7 +20,7 @@
 <body>
     <h1 class="pt-4 text-center">bootstrap5mde demo</h1>
     <div class="h-75 p-4">
-        <div id="bootstrap5mde" class="d-flex flex-column h-100 w-100 shadow">
+        <div id="bootstrap5mde" class="d-flex flex-column h-100 w-100 shadow-sm">
             <div id="bootstrap5mde-btn-toolbar" class="btn-toolbar p-1 al" role="toolbar">
                 <div class="btn-group p-0 m-0" role="group">
                     <button id="bootstrap5mde-btn-bold" type="button p-0 m-0" class="btn px-6px" title="Bold text">
@@ -59,8 +59,15 @@
                     <button id="bootstrap5mde-btn-image-link" type="button" class="btn px-6px" title="Image link">
                         <img src="img/mdi-image.svg" class="svg-fill p-0 m-0" height="32px" width="32px">
                     </button>
-                    <button id="bootstrap5mde-btn-upload-image" type="button" class="btn px-6px" title="Upload image">
+                    <button id="bootstrap5mde-btn-image-upload" type="button" class="btn px-6px" title="Upload image">
                         <img src="img/mdi-upload.svg" class="svg-fill p-0 m-0" height="32px" width="32px">
+                    </button>
+                </div>
+    
+                <div class="vr bootstrap5mde-vr mx-1 my-2"></div>
+                <div class="btn-group p-0 m-0" role="group">
+                    <button id="bootstrap5mde-btn-help" type="button" class="btn px-6px" title="Markdown guide">
+                        <img src="img/mdi-help.svg" class="svg-fill p-0 m-0" height="32px" width="32px">
                     </button>
                 </div>
     
@@ -77,7 +84,7 @@
 
             </div>
             
-            <textarea id="bootstrap5mde-raw"></textarea>    <!-- This textarea contains the raw text -->
+            <textarea id="bootstrap5mde-raw" spellcheck="false"></textarea>    <!-- This textarea contains the raw text -->
             <div id="bootstrap5mde-parsed" class="overflow-auto" style="display:none"></div>    <!-- This div contains the markdown parsed text -->
         </div>
     </div>
