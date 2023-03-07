@@ -1,0 +1,44 @@
+*{
+    --border-color: #dddddd;
+    --svg-fill-color: #abb7c3;
+}
+
+#romanianmd{
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+}
+
+#romanianmd-btn-toolbar{
+    border-bottom: 1px solid var(--border-color);
+}
+
+#romanianmd-raw{
+    border:none;
+    border-radius: 0px;
+    width:100%; 
+    height:100%;
+    font-size: 16px;
+    resize: none;
+}
+
+#romanianmd-parsed{
+    border:none;
+    width:100%;
+    height:100%;
+}
+
+.svg-fill{
+    filter: invert(54%) sepia(11%) saturate(355%) hue-rotate(169deg) brightness(86%) contrast(88%);
+}
+
+.romanianmd-vr{
+    filter: invert(54%) sepia(11%) saturate(355%) hue-rotate(169deg) brightness(86%) contrast(88%);
+}
+
+.romanianmd-border{
+    border: 1px solid var(--border-color)
+}
+
+.px-6px{
+    padding-inline: 6px !important;
+}

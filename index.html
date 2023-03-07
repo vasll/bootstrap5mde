@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>romanian-md</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="libs/bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/romanianmd.css">
+    <style>
+        html, body{
+            min-height: 100vh;
+            max-height: 100vh;
+            height:100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="romanianmd" class="m-2">
+        <div id="romanianmd-btn-toolbar" class="btn-toolbar p-1" role="toolbar">
+            <div class="btn-group p-0 m-0" role="group">
+                <button id="romanianmd-btn-bold" type="button p-0 m-0" class="btn px-6px">
+                    <img src="img/mdi-format-bold.svg" class="svg-fill p-0 m-0" height="32px" width="32px">
+                </button>
+                <button id="romanianmd-btn-italic" type="button" class="btn px-6px">
+                    <img id="" src="img/mdi-format-italic.svg" class="svg-fill" height="32px" width="32px">
+                </button>
+            </div>
+
+            <div class="vr mx-1 my-2" style="border-left: 1px solid var(--svg-fill-color);"></div>
+            <div class="btn-group p-0 m-0" role="group">
+                <button type="button p-0 m-0" class="btn px-6px">
+                    <img src="img/mdi-format-h1.svg" class="svg-fill p-0 m-0" height="32px" width="32px">
+                </button>
+                <button type="button" class="btn px-6px">
+                    <img src="img/mdi-format-h2.svg" class="svg-fill" height="32px" width="32px">
+                </button>
+                <button type="button" class="btn px-6px">
+                    <img src="img/mdi-format-h3.svg" class="svg-fill" height="32px" width="32px">
+                </button>
+            </div>
+            <!--
+            <div class="col btn m-1 p-0" id="btn-switch-markdown">
+                Preview
+            </div>
+            -->
+        </div>
+        
+        <textarea id="romanianmd-raw"></textarea>
+        <div id="romanianmd-parsed" style="display:none"></div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="libs/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+    <script src="libs/jquery-3.6.3.js"></script>
+    <script src="js/romanianmd.js"></script>
+</body>
+
+</html>
