@@ -1,5 +1,6 @@
 // TODO implement drag and drop
 // TODO if current line starts with '* ' and enter is pressed, add another '* ' at the start of the new line
+// TODO add shortcuts
 
 $(document).ready(()=>{
     let isEditMode = true;    // true if showing raw textarea, false if showing parsed markdown
@@ -72,6 +73,20 @@ $(document).ready(()=>{
     $('#bootstrap5mde-btn-help').on('click', ()=>{
         window.location.href = 'https://www.markdownguide.org/basic-syntax/'
     })
+
+    // Textarea keydown listener
+    $('#bootstrap5mde-raw').on('keydown', (event)=>{
+        const key = event['originalEvent']['key']
+        
+        if(isTextHighlighted($('#bootstrap5mde-raw'))){ // If text is highlighted
+            // TODO IMPLEMENT THIS
+            if(key == '*'){ 
+                
+            }else if(key == '_'){
+
+            }
+        }
+    });
 })
 
 
@@ -149,4 +164,18 @@ function addTextSurroundingCursor(textArea, surroundText){
             'selectionEnd': cursorEndPosition
         });
     }
+}
+
+/**
+ * @param {*} textArea An HTML textarea
+ * @returns true if text is highlighted, false if it isn't
+ */
+function isTextHighlighted(textArea){
+    var cursorStart = $(textArea).prop('selectionStart')
+    var cursorEnd = $(textArea).prop('selectionEnd')
+
+    if(cursorStart != cursorEnd){
+        return true
+    }
+    return false
 }
