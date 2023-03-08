@@ -3,64 +3,71 @@
 // TODO add shortcuts
 
 $(document).ready(()=>{
+    /** HTML elements **/
+    const $textAreaRaw = $('#bootstrap5mde-raw')    // textArea containing raw text
+    const $markdownDiv = $('#bootstrap5mde-parsed') // div containing the parsed markdown content
+    const $markdownModeText = $('#p-markdown-status')   // <p> that displays current markdown mode (edit mode/view mode)
+    const $markdownModeImg = $('#img-switch-markdown')  // img that displays current markdown mode (edit mode/view mode)
+
+    /** Variables **/
     let isEditMode = true;    // true if showing raw textarea, false if showing parsed markdown
 
-    /*** TOOLBAR BUTTON LISTENERS ***/
-    // Switch between edit and view mode
+    /** Toolbar button listeners **/
+    // Switch between edit (textAreaRaw) and view (markdownDiv) mode
     $('#btn-switch-markdown').on('click', ()=>{
         if(isEditMode == true){
-            $('#img-switch-markdown').attr('src', 'img/mdi-preview-on.svg')
-            $('#p-markdown-status').text('View mode')
-            $('#bootstrap5mde-raw').hide()
-            $('#bootstrap5mde-parsed').html(marked.parse($('#bootstrap5mde-raw').val()))    // TODO sanitize parsing
-            $('#bootstrap5mde-parsed').show()
+            $markdownModeImg.attr('src', 'img/mdi-preview-on.svg')
+            $markdownModeText.text('View mode')
+            $textAreaRaw.hide()
+            $markdownDiv.html(marked.parse($textAreaRaw.val()))    // TODO sanitize parsing
+            $markdownDiv.show()
         }else if(isEditMode == false){
-            $('#p-markdown-status').text('Edit mode')
-            $('#img-switch-markdown').attr('src', 'img/mdi-preview-off.svg')
-            $('#bootstrap5mde-parsed').hide()
-            $('#bootstrap5mde-raw').show()
+            $markdownModeImg.attr('src', 'img/mdi-preview-off.svg')
+            $markdownModeText.text('Edit mode')
+            $markdownDiv.hide()
+            $textAreaRaw.show()
         }
         isEditMode = !isEditMode    // toggle isEditMode
     })
 
     // Bold btn listener
     $('#bootstrap5mde-btn-bold').on('click', ()=>{
-        addTextSurroundingCursor($('#bootstrap5mde-raw'), '**')  // Surround highlighted text like this: **<text>**
+        addTextSurroundingCursor($textAreaRaw, '**')  // Surround highlighted text like this: **<text>**
     })
 
     // Italic btn listener
     $('#bootstrap5mde-btn-italic').on('click', ()=>{
-        addTextSurroundingCursor($('#bootstrap5mde-raw'), '_')  // Surround highlighted text like this: _<text>_
+        addTextSurroundingCursor($textAreaRaw, '_')  // Surround highlighted text like this: _<text>_
     })
 
     // H1 btn listener
     $('#bootstrap5mde-btn-header-1').on('click', ()=>{
-        addTextAtCursor($('#bootstrap5mde-raw'), '# ')
+        addTextAtCursor($textAreaRaw, '# ')
     })
 
     // H2 btn listener
     $('#bootstrap5mde-btn-header-2').on('click', ()=>{
-        addTextAtCursor($('#bootstrap5mde-raw'), '## ')
+        addTextAtCursor($textAreaRaw, '## ')
     })
 
     // Bullet-list button listener
     $('#bootstrap5mde-btn-bullet-list').on('click', ()=>{
-        addTextAtCursor($('#bootstrap5mde-raw'), '\n* ')
+        addTextAtCursor($textAreaRaw, '\n* ')
     })
 
     // Number-list button listener
     $('#bootstrap5mde-btn-numbered-list').on('click', ()=>{
-        addTextAtCursor($('#bootstrap5mde-raw'), '\n1. ') 
+        addTextAtCursor($textAreaRaw, '\n1. ') 
     })
 
     // Link button listener
     $('#bootstrap5mde-btn-link').on('click', ()=>{
-        addTextAtCursor($('#bootstrap5mde-raw'), '[title](http://)', offset=-1)
+        addTextAtCursor($textAreaRaw, '[title](http://)', offset=-1)
     })
 
     // Image-link button listener
     $('#bootstrap5mde-btn-image-link').on('click', ()=>{
-        addTextAtCursor($('#bootstrap5mde-raw'), '![](http://)', offset=-1)
+        addTextAtCursor($textAreaRaw, '![](http://)', offset=-1)
     })
 
     // Image-upload button listener
@@ -75,10 +82,10 @@ $(document).ready(()=>{
     })
 
     // Textarea keydown listener
-    $('#bootstrap5mde-raw').on('keydown', (event)=>{
+    $textAreaRaw.on('keydown', (event)=>{
         const key = event['originalEvent']['key']
         
-        if(isTextHighlighted($('#bootstrap5mde-raw'))){ // If text is highlighted
+        if(isTextHighlighted($textAreaRaw)){ // If text is highlighted
             // TODO IMPLEMENT THIS
             if(key == '*'){ 
                 
@@ -141,7 +148,6 @@ function addTextSurroundingCursor(textArea, surroundText){
     if(highlightedText.length>0){  
         if(highlightedText.endsWith(" ")){
             highlightedText = $.trim(highlightedText)
-            console.log(surroundText)
         }
     }
 
@@ -156,9 +162,9 @@ function addTextSurroundingCursor(textArea, surroundText){
             'selectionStart': cursorPosition,
             'selectionEnd': cursorPosition
         });
-    }else if(highlightedText.length>0){ // If 'highlightedText' contains text, set cursor position at the end of the surrounded text
-        const cursorStartPosition = textBeforeStart.length + surroundText.length
-        const cursorEndPosition = cursorStartPosition + highlightedText.length
+    }else if(highlightedText.length>0){ // If 'highlightedText' contains text
+        const cursorStartPosition = textBeforeStart.length
+        const cursorEndPosition = cursorStartPosition + surroundText.length*2 + highlightedText.length
         $(textArea).prop({
             'selectionStart': cursorStartPosition, 
             'selectionEnd': cursorEndPosition
