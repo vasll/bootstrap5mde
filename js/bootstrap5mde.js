@@ -81,19 +81,22 @@ $(document).ready(()=>{
         window.location.href = 'https://www.markdownguide.org/basic-syntax/'
     })
 
-    // Textarea keydown listener
-    $textAreaRaw.on('keydown', (event)=>{
-        const key = event['originalEvent']['key']
-        
-        if(isTextHighlighted($textAreaRaw)){ // If text is highlighted
-            // TODO IMPLEMENT THIS
-            if(key == '*'){ 
-                
-            }else if(key == '_'){
+    // Textarea keypress listener
+    $textAreaRaw.on('keypress', (event)=>{
+        const highlightedText = getHighlightedText($textAreaRaw)
+        if(highlightedText != null){
+            var charCode = (typeof event.which == "undefined") ? event.keyCode : event.which    // stackoverflow idk
+            var key = String.fromCharCode(charCode) // current keypress value
 
+            if (key == '*') {  // Shortcut for bolding text
+                addTextSurroundingCursor($textAreaRaw, '**')
+                return false;   // Returning false prevents the key from being inserted into the textarea
+            } else if (key == '_'){  // Shortcut for italicizing text
+                addTextSurroundingCursor($textAreaRaw, '_')
+                return false;
             }
         }
-    });
+    })
 })
 
 
@@ -133,9 +136,14 @@ function addTextAtCursor(textArea, text, offset = 0){
 /**
  * Places a given text on the left and right of a cursor in a textarea
  * @param {*} textArea An HTML textarea
- * @param {*} surroundText Text String to be inserted at left and right of cursor
+ * @param {*} textLeft Text String to be inserted at left of cursor
+ * @param {*} textRight Text String to be inserted at right of cursor, if none is given, textRight is equal to textLeft
  */
-function addTextSurroundingCursor(textArea, surroundText){
+function addTextSurroundingCursor(textArea, textLeft, textRight=null){
+    if(textRight == null){
+        textRight = textLeft
+    }
+
     var cursorStart = $(textArea).prop('selectionStart')
     var cursorEnd = $(textArea).prop('selectionEnd')
     
@@ -151,20 +159,25 @@ function addTextSurroundingCursor(textArea, surroundText){
         }
     }
 
+    // Check if there is already a space between textRight and textAfterEnd, if there is none append a space at the start of textAfterEnd
+    if(!(textRight.endsWith(' ') || textAfterEnd.startsWith(' '))){
+        textAfterEnd = " " + textAfterEnd
+    }
+
     // Replace text from textarea
-    $(textArea).val(`${textBeforeStart}${surroundText}${highlightedText}${surroundText} ${textAfterEnd}`)
+    $(textArea).val(`${textBeforeStart}${textLeft}${highlightedText}${textRight}${textAfterEnd}`)
     $(textArea).focus()
 
-    // If 'highlightedText' is empty, set cursor position in the middle of the two 'surroundText'
-    if(highlightedText.length==0){
-        const cursorPosition = textBeforeStart.length + surroundText.length
+    // If 'highlightedText' is empty, set cursor position in the middle
+    if(highlightedText.length==0 && (textLeft.length == textRight.length)){
+        const cursorPosition = textBeforeStart.length + textLeft.length
         $(textArea).prop({
             'selectionStart': cursorPosition,
             'selectionEnd': cursorPosition
         });
     }else if(highlightedText.length>0){ // If 'highlightedText' contains text
         const cursorStartPosition = textBeforeStart.length
-        const cursorEndPosition = cursorStartPosition + surroundText.length*2 + highlightedText.length
+        const cursorEndPosition = cursorStartPosition + textLeft.length + highlightedText.length + textRight.length
         $(textArea).prop({
             'selectionStart': cursorStartPosition, 
             'selectionEnd': cursorEndPosition
@@ -174,14 +187,16 @@ function addTextSurroundingCursor(textArea, surroundText){
 
 /**
  * @param {*} textArea An HTML textarea
- * @returns true if text is highlighted, false if it isn't
+ * @returns String containing highlighted text if it is highlighted, null if it isn't
  */
-function isTextHighlighted(textArea){
+function getHighlightedText(textArea){
     var cursorStart = $(textArea).prop('selectionStart')
     var cursorEnd = $(textArea).prop('selectionEnd')
 
-    if(cursorStart != cursorEnd){
-        return true
+    if(cursorStart != cursorEnd){   // If there is highlighted text
+        var highlightedText = $(textArea).val().substring(cursorStart, cursorEnd)
+        return highlightedText
     }
-    return false
+
+    return null
 }
