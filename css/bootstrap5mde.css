@@ -1,6 +1,7 @@
 *{
     --border-color: #dddddd;
-    --svg-fill-color: #abb7c3;
+    --svg-fill-color: #8f98a1;
+    --svg-fill-color-primary: #0d6efd;
 }
 
 #bootstrap5mde{
@@ -35,6 +36,11 @@
     filter: invert(54%) sepia(11%) saturate(355%) hue-rotate(169deg) brightness(86%) contrast(88%);
 }
 
+.svg-fill-primary{
+    /* Filter based on --svg-fill-color with https://codepen.io/sosuke/pen/Pjoqqp */
+    filter: invert(30%) sepia(43%) saturate(5225%) hue-rotate(209deg) brightness(101%) contrast(98%);
+}
+
 .bootstrap5mde-vr{
     border-left: 1px solid var(--svg-fill-color)
 }
@@ -45,4 +51,8 @@
 
 .px-6px{
     padding-inline: 6px !important;
+}
+
+.shadow-hover{
+    transition: box-shadow 0.22s ease-in-out;
 }

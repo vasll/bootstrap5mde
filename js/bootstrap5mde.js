@@ -14,7 +14,7 @@ $(document).ready(()=>{
 
     /** Toolbar button listeners **/
     // Switch between edit (textAreaRaw) and view (markdownDiv) mode
-    $('#btn-switch-markdown').on('click', ()=>{
+    $('#bootstrap5mde-btn-switch-markdown').on('click', ()=>{
         if(isEditMode == true){
             $markdownModeImg.attr('src', 'img/mdi-preview-on.svg')
             $markdownModeText.text('View mode')
@@ -79,6 +79,18 @@ $(document).ready(()=>{
     // Add link redirect to help button
     $('#bootstrap5mde-btn-help').on('click', ()=>{
         window.location.href = 'https://www.markdownguide.org/basic-syntax/'
+    })
+
+    // Add shadow on hover to toolbar buttons
+    $('#bootstrap5mde-btn-toolbar').find('button[id^="bootstrap5mde-btn-"]').each((index, item)=>{
+        console.log(index)
+        $(item).hover(()=>{
+            $(item).addClass('shadow')
+            $(item).removeClass('svg-fill').addClass('svg-fill-primary')
+        }, ()=>{
+            $(item).removeClass('shadow')
+            $(item).removeClass('svg-fill-primary').addClass('svg-fill')
+        })
     })
 
     // Textarea keypress listener
