@@ -116,9 +116,9 @@ function addTextAtCursor(textArea, text, offset = 0){
     // TODO when a heading is added but the current row has already some text, add the heading to a newline
     var cursorStart = $(textArea).prop('selectionStart')
 
-    var v = $(textArea).val()
-    var textBefore = v.substring(0,  cursorStart)
-    var textAfter  = v.substring(cursorStart, v.length)
+    var textAreaText = $(textArea).val()
+    var textBefore = textAreaText.substring(0,  cursorStart)
+    var textAfter  = textAreaText.substring(cursorStart, textAreaText.length)
 
     // Replace text from textarea
     $(textArea).val(textBefore + text + textAfter)
@@ -155,13 +155,12 @@ function addTextSurroundingCursor(textArea, textLeft, textRight=null){
     // If highlightedText contains text, trim whitespaces
     if(highlightedText.length>0){  
         if(highlightedText.endsWith(" ")){
+            // Move the whitespace from highlightedText between textRight and textAfterEnd
             highlightedText = $.trim(highlightedText)
+            if(!(textRight.endsWith(' ') || textAfterEnd.startsWith(' '))){
+                textAfterEnd = " " + textAfterEnd
+            }
         }
-    }
-
-    // Check if there is already a space between textRight and textAfterEnd, if there is none append a space at the start of textAfterEnd
-    if(!(textRight.endsWith(' ') || textAfterEnd.startsWith(' '))){
-        textAfterEnd = " " + textAfterEnd
     }
 
     // Replace text from textarea
