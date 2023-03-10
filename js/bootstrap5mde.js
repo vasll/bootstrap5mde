@@ -19,7 +19,7 @@ $(document).ready(()=>{
             $markdownModeImg.attr('src', 'img/mdi-preview-on.svg')
             $markdownModeText.text('View mode')
             $textAreaRaw.hide()
-            $markdownDiv.html(marked.parse($textAreaRaw.val()))    // TODO sanitize parsing
+            $markdownDiv.html(DOMPurify.sanitize(marked.parse($textAreaRaw.val())))
             $markdownDiv.show()
         }else if(isEditMode == false){
             $markdownModeImg.attr('src', 'img/mdi-preview-off.svg')
